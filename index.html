@@ -1,57 +1,141 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bwm xmd url</title>
+    <title>Bwm xmd url online</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            height: 100vh;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            font-family: 'Arial', sans-serif;
+            justify-content: center;
+            color: #333;
+            padding: 20px;
             text-align: center;
         }
         
-        .message-box {
-            background: white;
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             max-width: 500px;
-            width: 90%;
+            width: 100%;
         }
         
-        h1 {
-            color: #4a6baf;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #4a6baf;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+        .spinner {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6e8efb;
+            margin: 30px 0;
+            display: inline-block;
+            animation: spin 2s linear infinite;
+            transform-origin: center;
         }
         
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        h1 {
+            color: #5a67d8;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #4a5568;
+        }
+        
+        .refresh-btn {
+            background: linear-gradient(to right, #6e8efb, #a777e3);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 15px 0;
+        }
+        
+        .refresh-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .refresh-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            font-size: 16px;
+            color: #fff;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+        }
+        
+        .highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .icon {
+            display: inline-block;
+            margin: 0 5px;
+        }
     </style>
 </head>
 <body>
-    <div class="message-box">
-        <h1>Your url will be online in a minute wait we verify it</h1>
-        <div class="loader"></div>
+    <div class="container">
+        <h1>Page Refresh Required</h1>
+        <p>This page needs to be refreshed to display the latest content.</p>
+        <div class="spinner">
+            ↻ Please refresh this page ↻
+        </div>
+        <p>Click the button below or press F5 to update the page.</p>
+        <button class="refresh-btn" onclick="refreshPage()">Refresh Now</button>
     </div>
+    
+    <div class="footer">
+        <span class="icon">⚡</span>Bwm xmd urls by ibrahim adams<span class="icon">⚡</span>
+        <br>
+        <span class="highlight">Your file is online already</span>
+    </div>
+
+    <script>
+        function refreshPage() {
+            // Reload the current page
+            window.location.reload();
+        }
+        
+        // Add keyboard shortcut (F5) to refresh page
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'F5') {
+                refreshPage();
+            }
+        });
+    </script>
 </body>
 </html>
