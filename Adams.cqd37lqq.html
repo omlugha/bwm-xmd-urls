@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYMOH Tech | WhatsApp Bots & VPN Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00cc6a;
+            --primary-light: #66ffb3;
+            --dark-bg: #0a0f0d;
+            --card-bg: #131916;
+            --card-hover: #1a211e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b8b5;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent-blue) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(10, 15, 13, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            color: var(--dark-bg);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 2rem 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-button:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover);
+            border-color: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .icon-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        }
+
+        .icon-vpn {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, #6D28D9 100%);
+        }
+
+        .icon-deploy {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #1D4ED8 100%);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s ease;
+        }
+
+        .feature-link:hover {
+            gap: 12px;
+        }
+
+        /* Catalogue Section */
+        .catalogue {
+            padding: 100px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .category-tab.active {
+            background: var(--gradient);
+            color: var(--dark-bg);
+            border-color: transparent;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(0, 255, 136, 0.2);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient);
+            color: var(--dark-bg);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 200px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .product-features {
+            margin-bottom: 1.5rem;
+        }
+
+        .product-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .product-feature i {
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .product-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .price-period {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--dark-bg);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(0, 255, 136, 0.03);
+            border-radius: 24px;
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .testimonial-content p {
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-content::before {
+            content: """;
+            font-size: 4rem;
+            color: var(--primary);
+            position: absolute;
+            top: -1.5rem;
+            left: -0.5rem;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-bg);
+            font-weight: 700;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            background: var(--gradient);
+            border-radius: 24px;
+            color: var(--dark-bg);
+            margin-bottom: 4rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-dark {
+            background: var(--dark-bg);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-dark:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-outline-dark {
+            background: transparent;
+            color: var(--dark-bg);
+            border: 2px solid var(--dark-bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-dark:hover {
+            background: var(--dark-bg);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .nav-links, .nav-actions {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 1.5rem 80px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .features, .catalogue, .testimonials, .cta-section {
+                padding: 80px 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-robot logo-icon"></i>
+                <span>SYMOH</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#features" class="active">Features</a>
+                <a href="#whatsapp-bots">WhatsApp Bots</a>
+                <a href="#vpn-plans">VPN Plans</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="https://wa.me/254788729180" class="secondary-button">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <button class="cta-button">
+                    <i class="fas fa-bolt"></i> Get Started
+                </button>
+            </div>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <span class="hero-badge">🚀 Trusted by 500+ Businesses</span>
+            <h1>Automate & Secure Your Business with <span>SYMOH Tech</span></h1>
+            <p>Advanced WhatsApp Bot automation solutions and premium VPN services to grow and protect your business in the digital age.</p>
+            <div class="hero-actions">
+                <button class="cta-button">
+                    <i class="fas fa-rocket"></i> Explore Solutions
+                </button>
+                <button class="secondary-button">
+                    <i class="fas fa-play-circle"></i> Watch Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <span class="section-label">Why Choose SYMOH</span>
+            <h2 class="section-title">Powerful Features for Modern Businesses</h2>
+            <p class="section-subtitle">Our solutions are designed to streamline operations, enhance customer engagement, and secure your digital presence.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon icon-whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3>Smart WhatsApp Automation</h3>
+                <p>Automate customer support, order processing, and marketing campaigns with our intelligent WhatsApp bots.</p>
+                <a href="#whatsapp-bots" class="feature-link">
+                    Explore Bots <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-vpn">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Premium VPN Services</h3>
+                <p>High-speed, secure browsing with optimized servers for Dark Tunnel, HTTP Custom, and Howdy apps.</p>
+                <a href="#vpn-plans" class="feature-link">
+                    View Plans <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon icon-deploy">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h3>Easy Deployment & Support</h3>
+                <p>We handle setup, integration, and provide ongoing maintenance with 24/7 customer support.</p>
+                <a href="#deployment" class="feature-link">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Bots Catalogue -->
+    <section class="catalogue" id="whatsapp-bots">
+        <div class="section-header">
+            <span class="section-label">Automation Solutions</span>
+            <h2 class="section-title">WhatsApp Bot Catalogue</h2>
+            <p class="section-subtitle">Choose from our range of WhatsApp automation solutions designed for businesses of all sizes.</p>
+        </div>
+
+        <div class="category-tabs">
+            <button class="category-tab active">All Bots</button>
+            <button class="category-tab">Starter</button>
+            <button class="category-tab">Business</button>
+            <button class="category-tab">Enterprise</button>
+        </div>
+
+        <div class="products-grid">
+            <!-- Basic WhatsApp Bot -->
+            <div class="product-card">
+                <div class="product-badge">Most Popular</div>
+                <div class="product-image">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Starter Plan</span>
+                    <h3 class="product-title">Basic WhatsApp Bot</h3>
+                    <p class="product-description">Automated customer support and order processing for small businesses.</p>
+                    
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>24/7 Customer Support</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Order Processing</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Basic Analytics</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-pricing">
+                        <div class="price">KSH 150 <span class="price-period">/month</span></div>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Get Now
+                        </button>
+                        <button class="btn-secondary">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pro WhatsApp Bot -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Business Plan</span>
+                    <h3 class="product-title">Pro WhatsApp Bot</h3>
+                    <p class="product-description">Advanced automation with CRM integration and detailed analytics.</p>
+                    
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>CRM Integration</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Advanced Analytics</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Multi-language Support</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-pricing">
+                        <div class="price">KSH 200 <span class="price-period">/month</span></div>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Get Now
+                        </button>
+                        <button class="btn-secondary">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom WhatsApp Bot -->
+            <div class="product-card">
+                <div class="product-badge">Custom</div>
+                <div class="product-image">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Tailored Solution</span>
+                    <h3 class="product-title">Custom WhatsApp Bot</h3>
+                    <p class="product-description">Tailored bot solutions for complex business needs and workflows.</p>
+                    
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Custom Workflows</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>API Integrations</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Dedicated Support</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-pricing">
+                        <div class="price">KSH 300 <span class="price-period">one-time</span></div>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Get Now
+                        </button>
+                        <button class="btn-secondary">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VPN Plans Catalogue -->
+    <section class="catalogue" id="vpn-plans">
+        <div class="section-header">
+            <span class="section-label">Security & Privacy</span>
+            <h2 class="section-title">VPN Plans Catalogue</h2>
+            <p class="section-subtitle">Secure browsing with high-speed VPN plans optimized for various applications.</p>
+        </div>
+
+        <div class="category-tabs">
+            <button class="category-tab active">All Plans</button>
+            <button class="category-tab">Weekly</button>
+            <button class="category-tab">Monthly</button>
+            <button class="category-tab">Premium</button>
+        </div>
+
+        <div class="products-grid">
+            <!-- Starter VPN -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Starter Plan</span>
+                    <h3 class="product-title">Starter VPN</h3>
+                    <p class="product-description">Secure browsing with Dark Tunnel and HTTP Custom. 1 device, 10Mbps speed.</p>
+                    
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>1 Device</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>10Mbps Speed</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Dark Tunnel Support</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-pricing">
+                        <div class="price">KSH 50 <span class="price-period">/week</span></div>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                        <button class="btn-secondary">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Basic VPN -->
+            <div class="product-card">
+                <div class="product-badge">Popular</div>
+                <div class="product-image">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Basic Plan</span>
+                    <h3 class="product-title">Basic VPN</h3>
+                    <p class="product-description">Optimized for Dark Tunnel and Howdy. 2 devices, 20Mbps speed.</p>
+                    
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>2 Devices</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>20Mbps Speed</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Howdy Support</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-pricing">
+                        <div class="price">KSH 75 <span class="price-period">/week</span></div>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                        <button class="btn-secondary">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pro VPN -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="product-content">
+                    <span class="product-category">Pro Plan</span>
+                    <h3 class="product-title">Pro VPN</h3>
+                    <p class="product-description">High-speed access for HTTP Custom and Howdy. 5 devices, 50Mbps speed.</p>
+                    
+                    <div class="product-features">
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>5 Devices</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>50Mbps Speed</span>
+                        </div>
+                        <div class="product-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Priority Support</span>
+                        </div>
+                    </div>
+                    
+                    <div class="product-pricing">
+                        <div class="price">KSH 100 <span class="price-period">/week</span></div>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Purchase
+                        </button>
+                        <button class="btn-secondary">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <span class="section-label">Client Stories</span>
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-subtitle">Don't just take our word for it - hear from some of our satisfied clients.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"The WhatsApp bot has transformed our customer service. Response times improved by 80% and our team can focus on more complex queries."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SK</div>
+                    <div class="author-info">
+                        <h4>Samuel K.</h4>
+                        <p>E-commerce Store Owner</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"SYMOH's VPN service is fast and reliable. I've tried several providers, but this one works seamlessly with all my applications."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MJ</div>
+                    <div class="author-info">
+                        <h4>Mary J.</h4>
+                        <p>Digital Marketer</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p>"The custom bot solution streamlined our order processing completely. Setup was smooth and the support team is always available to help."</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RK</div>
+                    <div class="author-info">
+                        <h4>Robert K.</h4>
+                        <p>Restaurant Chain Manager</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Transform Your Business?</h2>
+        <p>Join hundreds of satisfied clients who have automated their operations and secured their digital presence with SYMOH Tech.</p>
+        <div class="cta-buttons">
+            <button class="btn-dark">
+                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </button>
+            <button class="btn-outline-dark">
+                <i class="fas fa-question-circle"></i> Get Consultation
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>SYMOH Tech</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Empowering businesses with advanced automation and security solutions.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">WhatsApp Bots</a></li>
+                    <li><a href="#">VPN Plans</a></li>
+                    <li><a href="#">Bot Deployment</a></li>
+                    <li><a href="#">Custom Solutions</a></li>
+                    <li><a href="#">Support & Maintenance</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">About Us</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="index.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><a href="https://wa.me/254788729180"><i class="fab fa-whatsapp"></i>CLICK TO ASK</a></li>
+                    <li><a href="https://t.me/symohke2"><i class="fab fa-telegram"></i> Telegram</a></li>
+                    <li><a href="mailto:info@symoh.com"><i class="fas fa-envelope"></i> Email Us</a></li>
+                    <li><a href="wa.me/254788729180"><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2025 SYMOH Tech Shop. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category tabs
+            const tabs = document.querySelectorAll('.category-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+
+            // Product card buttons
+            const primaryButtons = document.querySelectorAll('.btn-primary');
+            primaryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
+                    const message = encodeURIComponent(`I'm interested in purchasing: ${productTitle}`);
+                    const whatsappUrl = `https://wa.me/254788729180?text=${message}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            });
+
+            // CTA buttons
+            const ctaButtons = document.querySelectorAll('.cta-button, .btn-dark');
+            ctaButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const message = encodeURIComponent("Hello! I'd like to learn more about SYMOH Tech solutions.");
+                    const whatsappUrl = `https://wa.me/254788729180?text=${message}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
