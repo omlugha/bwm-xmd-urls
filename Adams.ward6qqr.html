@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - SYMOH TECH HUB</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00ffea; /* Neon cyan */
+            --secondary-color: #ff00ff; /* Neon magenta */
+            --bg-color: #0a0a0a; /* Dark background */
+            --text-color: #ffffff;
+            --accent-color: #1a1a1a; /* Slightly lighter dark */
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Top Header */
+        .top-header {
+            background: var(--accent-color);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .top-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left a {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+
+        .header-left a:hover {
+            color: var(--secondary-color);
+        }
+
+        #theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        #theme-toggle:hover {
+            transform: rotate(180deg);
+        }
+
+        /* Main Header */
+        .main-header {
+            background: transparent;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 2em;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-nav li {
+            margin-left: 30px;
+        }
+
+        .main-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s;
+        }
+
+        .main-nav a:hover::after,
+        .main-nav a.active::after {
+            width: 100%;
+        }
+
+        .main-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        /* About Hero */
+        .about-hero {
+            background: var(--gradient);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .about-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        .about-hero p {
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+
+        /* About Content */
+        .about-content {
+            padding: 80px 0;
+        }
+
+        .about-text h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .value-item {
+            background: var(--accent-color);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 255, 234, 0.1);
+        }
+
+        .value-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 40px rgba(0, 255, 234, 0.2);
+        }
+
+        .value-item i {
+            font-size: 2em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .value-item h3 {
+            color: var(--primary-color);
+        }
+
+        /* Team Section */
+        .team-section {
+            background: var(--accent-color);
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+        }
+
+        .member-image img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        .team-member h3 {
+            color: var(--primary-color);
+            margin: 15px 0 5px;
+        }
+
+        .team-member p {
+            opacity: 0.7;
+        }
+
+        /* Footer */
+        .main-footer {
+            background: var(--accent-color);
+            padding: 60px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-footer .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-col h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-col p {
+            margin-bottom: 10px;
+        }
+
+        .footer-col p i {
+            color: var(--secondary-color);
+            margin-right: 10px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-color);
+            }
+
+            .main-nav.active {
+                display: block;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .main-nav li {
+                margin: 10px 0;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .main-footer .container {
+                flex-direction: column;
+            }
+        }
+
+        /* Theme Toggle Script */
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            if (document.body.classList.contains('light-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                document.documentElement.style.setProperty('--bg-color', '#ffffff');
+                document.documentElement.style.setProperty('--text-color', '#0a0a0a');
+                document.documentElement.style.setProperty('--accent-color', '#f0f0f0');
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                document.documentElement.style.setProperty('--bg-color', '#0a0a0a');
+                document.documentElement.style.setProperty('--text-color', '#ffffff');
+                document.documentElement.style.setProperty('--accent-color', '#1a1a1a');
+            }
+        });
+
+        /* Mobile Menu */
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const mainNav = document.querySelector('.main-nav');
+        mobileToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+    </style>
+</head>
+<body>
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="container">
+            <div class="header-left">
+                <a href="https://www.tiktok.com/@mimanuked001?_t=ZS-8zU50IBZ80G&_r=1"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <div class="header-right">
+                <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>SYMOH'S TECH HUB'</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About MIMA'S PLACE</h1>
+            <p>Your journey to elegant fashion begins here</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-content">
+        <div class="container">
+            <div class="about-text">
+                <h2>Our Story</h2>
+                <p>MIMA'S PLACE was founded with a passion for bringing elegant, affordable fashion for everyone. What started as a small boutique has grown into a beloved brand known for quality, style, and exceptional customer service.</p>
+                
+                <p>Our journey began in 2023 when our founder, Miracle, noticed a gap in the market for sophisticated yet affordable clothing. She believed every woman deserved to feel beautiful and confident in her attire, regardless of her budget.</p>
+                
+                <h2>Our Mission</h2>
+                <p>At MIMA'S PLACE, our mission is to empower everyone through fashion. We carefully curate our collections to ensure each piece not only looks beautiful but makes you feel beautiful too.</p>
+                
+                <h2>Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-item">
+                        <i class="fas fa-star"></i>
+                        <h3>Quality</h3>
+                        <p>We never compromise on the quality of our materials and craftsmanship.</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-heart"></i>
+                        <h3>Passion</h3>
+                        <p>Fashion is our passion, and we pour that love into every design.</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-users"></i>
+                        <h3>Community</h3>
+                        <p>We believe in building a community where women uplift each other.</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Sustainability</h3>
+                        <p>We're committed to ethical sourcing and sustainable practices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="images/about-founder.jpg" alt="Miracle - Founder">
+                    </div>
+                    <h3>Tech symih</h3>
+                    <p>Founder & Creative Director</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-col">
+                <h3>SYMOHTECH</h3>
+                <p>Your destination for boutique fashion and unique style.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/getpremium.html">Products</a></li>
+                    <li><a href="/Esim.html">Esim</a></li>
+                    <li><a href="contactus.html">Contact</a></li>
+                    <li><a href="https://instagram.com/symohke2">Instagram</a></li>
+                    <li><a href="https://wa.me/254788729180?text=I'M+FROM+Symihtech+hub">Contact Web Developer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <p><i class="fas fa-map-marker-alt"></i> 123 Fashion Street, City</p>
+                <p><i class="fas fa-phone"></i>+254788729180</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:chege2218@gmail.com">EMAIL US</a></p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 SYMOHTECH. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Inline script for theme and mobile menu already included in <style> as a comment, but actually place it here
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            if (document.body.classList.contains('light-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                document.documentElement.style.setProperty('--bg-color', '#ffffff');
+                document.documentElement.style.setProperty('--text-color', '#0a0a0a');
+                document.documentElement.style.setProperty('--accent-color', '#f0f0f0');
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                document.documentElement.style.setProperty('--bg-color', '#0a0a0a');
+                document.documentElement.style.setProperty('--text-color', '#ffffff');
+                document.documentElement.style.setProperty('--accent-color', '#1a1a1a');
+            }
+        });
+
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const mainNav = document.querySelector('.main-nav');
+        mobileToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
