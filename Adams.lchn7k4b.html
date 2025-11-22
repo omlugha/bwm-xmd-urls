@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Collector | VERSION 2.0</title>
+    <style>
+        :root {
+            --primary: #00eaff;
+            --secondary: #8f00ff;
+            --accent: #00c6ff;
+            --dark: #0d0d0f;
+            --card-bg: rgba(255,255,255,0.05);
+            --card-border: rgba(255,255,255,0.1);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"Poppins",sans-serif;background:var(--dark);color:#fff;overflow-x:hidden;min-height:100vh;
+            background-image: radial-gradient(circle at 10% 20%, rgba(0,234,255,0.05) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(143,0,255,0.05) 0%, transparent 20%);
+        }
+        .header{ text-align:center; padding:25px 10px; font-size:32px; font-weight:700; background:linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip:text; color:transparent; position:relative; overflow:hidden; }
+        .header::after{ content:"VERSION 2.0"; position:absolute; top:5px; right:5px; font-size:12px; color:var(--primary); background:rgba(0,0,0,0.3); padding:2px 6px; border-radius:4px; }
+        #controlToggle{ position:absolute; top:5px; left:5px; width:20px; height:20px; background:var(--primary); border-radius:50%; cursor:pointer; border:1px solid #fff; }  /* Status */
+        .status-box{ width:90%; max-width:800px; margin:20px auto; background:var(--card-bg); border-radius:18px; padding:20px; backdrop-filter:blur(10px); border:1px solid var(--card-border); box-shadow:0 8px 32px rgba(0,0,0,0.2);}
+        .status-title{ text-align:center; font-size:20px; letter-spacing:3px; margin-bottom:15px; color:var(--primary); }
+        .status-grid{ display:flex; justify-content:space-between; text-align:center; }
+        .stat{ width:32%; padding:15px; border-radius:12px; background:rgba(255,255,255,0.04); border:1px solid var(--card-border); transition:all 0.3s ease; }
+        .stat:hover{ transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,234,255,0.1); }
+        .stat span{ font-size:28px; font-weight:bold; display:block; background:linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip:text; color:transparent; }  .form-box{ width:90%; max-width:800px; margin:25px auto; padding:20px; border-radius:18px; background:var(--card-bg); border:1px solid var(--card-border); backdrop-filter:blur(10px); box-shadow:0 8px 32px rgba(0,0,0,0.2); }
+        input{ width:100%; padding:15px; border-radius:12px; margin-bottom:14px; border:none; background:rgba(255,255,255,0.08); color:white; font-size:16px; transition:all 0.3s ease; }
+        input:focus{ outline:none; box-shadow:0 0 0 2px var(--primary); }
+        button{ width:100%; padding:15px; border:none; border-radius:12px; background:linear-gradient(90deg, var(--accent), #0072ff); color:white; font-size:18px; cursor:pointer; transition:all 0.3s ease; font-weight:bold; letter-spacing:1px; }
+        button:hover{ transform:translateY(-3px); box-shadow:0 10px 20px rgba(0,198,255,0.3); }
+
+        .whatsapp-link{ margin:20px 0; padding:15px; background:#25D366; color:#000; border-radius:12px; text-align:center; font-weight:bold; text-decoration:none; display:block; transition:all 0.3s ease; }
+        .whatsapp-link:hover{ transform:translateY(-3px); box-shadow:0 10px 20px rgba(37,211,102,0.3); }
+
+        .footer{ text-align:center; padding:20px; margin-top:30px; font-size:12px; color:#666; border-top:1px solid rgba(255,255,255,0.1); }
+        .progress-container{ width:100%; height:10px; background:rgba(255,255,255,0.1); border-radius:5px; margin:15px 0; overflow:hidden; }
+        .progress-bar{ height:100%; background:linear-gradient(90deg, var(--primary), var(--secondary)); border-radius:5px; transition:width 0.5s ease; }
+        .notification{ position:fixed; top:20px; right:20px; padding:15px 20px; background:rgba(0,0,0,0.8); border-left:4px solid var(--primary); border-radius:8px; color:white; transform:translateX(150%); transition:transform 0.5s ease; z-index:1000; }
+
+        .download-section{ text-align:center; margin-top:20px; padding:15px; background:rgba(0,234,255,0.1); border-radius:12px; border:1px solid var(--primary); }
+        .download-btn{ background:linear-gradient(90deg, #25D366, #128C7E); margin-top:10px; }
+        .countdown{ font-size:18px; margin:10px 0; color:var(--primary); }
+
+        /* Admin Panel */
+        #controlPanel{ position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--dark); border:1px solid var(--card-border); padding:25px; border-radius:18px; width:350px; display:none; z-index:10000; box-shadow:0 8px 32px rgba(0,0,0,0.3);}
+        #controlPanel h3{ text-align:center; color:var(--primary); margin-bottom:15px; }
+        #controlPanel input{ width:100%; padding:10px; border-radius:10px; border:none; margin-bottom:10px; background:rgba(255,255,255,0.08); color:#fff; }
+        #controlPanel button{ padding:10px; border-radius:10px; border:none; cursor:pointer; background:var(--accent); color:#fff; margin-bottom:5px; width:100%; }
+        #adminContacts{ max-height:200px; overflow-y:auto; margin-top:10px; border:1px solid var(--card-border); border-radius:10px; padding:10px; background:rgba(255,255,255,0.05); }
+        #closeAdmin{ position:absolute; top:5px; right:10px; cursor:pointer; font-weight:bold; font-size:18px; color:#fff; }
+
+        /* Tableau durée en ligne */
+        #siteInfoTable{ width:90%; max-width:800px; margin:20px auto; border:1px solid var(--card-border); border-radius:12px; padding:15px; background:var(--card-bg); }
+        #siteInfoTable table{ width:100%; border-collapse:collapse; color:#fff;}
+        #siteInfoTable th, #siteInfoTable td{ border:1px solid var(--card-border); padding:10px; text-align:center; }
+        #siteInfoTable th{ background:rgba(0,234,255,0.1);}
+        
+        /* Animation pour le compteur de temps */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .time-display {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            animation: pulse 2s infinite;
+            background: linear-gradient(45deg, #ff8a00, #e52e71, #00eaff);
+            background-size: 300% 300%;
+            animation: pulse 2s infinite, gradientShift 3s infinite alternate;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .user-download-btn {
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            margin: 10px 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="header">VCARD CONTACT COLLECTOR
+    <div id="controlToggle" title="Admin Control"></div>
+</div>
+
+<div class="status-box">
+    <div class="status-title">MISSION STATUS</div>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="status-grid">
+        <div class="stat"><span id="targetCount">700</span>TARGET</div>
+        <div class="stat"><span id="addedCount">0</span>ADDED</div>
+        <div class="stat"><span id="neededCount">700</span>NEEDED</div>
+    </div>
+</div>
+
+<div class="form-box">
+    <h2 style="text-align:center; margin-bottom:10px;">Join VCard Collection</h2>
+    <input id="name" type="text" placeholder="Enter your name">
+    <input id="phone" type="text" placeholder="Phone with country code (ex: +509...)">
+    <button onclick="register()">Register Now</button>
+    
+    <!-- Bouton de téléchargement pour utilisateurs -->
+    <button id="userDownloadBtn" class="user-download-btn" onclick="downloadVCFUser()">Télécharger VCF</button>
+    
+    <a id="whatsappJoin" class="whatsapp-link" href="https://chat.whatsapp.com/HF9FUf9YKhA6cNde3aLfE3?mode=hqrt2">Rejoindre le groupe WhatsApp</a>
+</div>
+
+<div id="siteInfoTable">
+    <table>
+        <thead>
+        <tr><th>Temps restant avant téléchargement</th></tr>
+        </thead>
+        <tbody>
+        <tr><td class="time-display" id="siteTimeDisplay">Calcul en cours...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="footer">Mode by M.D.X 🛑 END TECH</div>
+<div class="notification" id="notification"></div>
+
+<!-- Admin Panel -->
+<div id="controlPanel">
+    <span id="closeAdmin" onclick="closeAdminPanel()">✖</span>
+    <h3>Contrôle Admin</h3>
+    <input type="password" id="adminCodeInput" placeholder="Entrez le code">
+    <button onclick="verifyAdminCode()">Valider</button>
+    <div id="adminControls" style="display:none;">
+        <label>Nombre cible:</label>
+        <input type="number" id="targetInput" value="300">
+        <label>Temps préparation (sec):</label>
+        <input type="number" id="prepTimeInput" value="50">
+        <label>Temps du site en ligne (sec):</label>
+        <input type="number" id="siteOnlineInput" value="604800">
+        <button onclick="updateSettings()">Appliquer</button>
+        <button onclick="resetAll()">Tout Réinitialiser</button>
+        <h4>Contacts collectés:</h4>
+        <div id="adminContacts"></div>
+        <button id="downloadVCFAdminBtn" onclick="downloadVCFAdmin()">Télécharger VCF</button>
+    </div>
+</div>
+
+<script>
+    // CONFIG
+    let TARGET = 300;
+    let PREPARATION_TIME = 50;
+    let SITE_ONLINE = 604800;
+    const ADMIN_CODE = "1234&1234";
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    let downloadTimer = null;
+    let remainingTime = SITE_ONLINE;
+    let downloadAvailable = false;
+
+    // INITIALISATION
+    updateStatus();
+    updateSiteTimeDisplay();
+    updateAdminContacts();
+    startDownloadTimer();
+
+    // FONCTIONS
+    function updateStatus(){
+        const added = contacts.length;
+        const needed = TARGET - added;
+        const progress = (added / TARGET) * 100;
+        document.getElementById("targetCount").innerText = TARGET;
+        document.getElementById("addedCount").innerText = added;
+        document.getElementById("neededCount").innerText = needed;
+        document.getElementById("progressBar").style.width = `${progress}%`;
+    }
+
+    function register(){
+        let name = document.getElementById("name").value.trim();
+        let phone = document.getElementById("phone").value.trim();
+        if(!name || !phone || !phone.startsWith("+")) { 
+            showNotification("Veuillez entrer un nom et un numéro valide.","error"); 
+            return; 
+        }
+        const isDuplicate = contacts.some(c => c.phone === phone || c.name.toLowerCase() === name.toLowerCase());
+        if(isDuplicate){ 
+            showNotification("Nom ou numéro déjà utilisé. Veuillez changer.","warning"); 
+            return; 
+        }
+
+        contacts.push({name, phone});    
+        localStorage.setItem("contacts", JSON.stringify(contacts));    
+        updateStatus();    
+        showNotification("Contact ajouté avec succès!","success");    
+        document.getElementById("name").value = "";    
+        document.getElementById("phone").value = "";    
+
+        // Mise à jour VCF automatique admin    
+        updateAdminContacts();
+    }
+
+    // Notifications
+    function showNotification(message, type = "info"){
+        const notification = document.getElementById("notification");
+        notification.textContent = message;
+        notification.style.borderLeftColor = (type === "error") ? "#ff4757" : (type === "warning") ? "#ffa502" : (type === "success") ? "#2ed573" : "#00eaff";
+        notification.style.transform = "translateX(0)";
+        setTimeout(() => {
+            notification.style.transform = "translateX(150%)";
+        }, 3000);
+    }
+
+    // Timer pour le téléchargement
+    function startDownloadTimer() {
+        clearInterval(downloadTimer);
+        remainingTime = SITE_ONLINE;
+        
+        downloadTimer = setInterval(() => {
+            remainingTime--;
+            updateSiteTimeDisplay();
+            
+            if (remainingTime <= 0) {
+                clearInterval(downloadTimer);
+                downloadAvailable = true;
+                document.getElementById("userDownloadBtn").style.display = "block";
+                showNotification("Le téléchargement est maintenant disponible!", "success");
+            }
+        }, 1000);
+    }
+
+    function updateSiteTimeDisplay() {
+        const days = Math.floor(remainingTime / (24 * 60 * 60));
+        const hours = Math.floor((remainingTime % (24 * 60 * 60)) / (60 * 60));
+        const minutes = Math.floor((remainingTime % (60 * 60)) / 60);
+        const seconds = remainingTime % 60;
+        
+        let timeString = "";
+        if (days > 0) timeString += `${days}j `;
+        if (hours > 0) timeString += `${hours}h `;
+        if (minutes > 0) timeString += `${minutes}m `;
+        timeString += `${seconds}s`;
+        
+        document.getElementById("siteTimeDisplay").textContent = timeString;
+        
+        // Changer la couleur selon le temps restant
+        if (remainingTime < 60) {
+            document.getElementById("siteTimeDisplay").style.background = "linear-gradient(45deg, #ff0000, #ff8a00)";
+        } else if (remainingTime < 300) {
+            document.getElementById("siteTimeDisplay").style.background = "linear-gradient(45deg, #ff8a00, #ffcc00)";
+        } else {
+            document.getElementById("siteTimeDisplay").style.background = "linear-gradient(45deg, #00eaff, #8f00ff)";
+        }
+    }
+
+    // ================= Admin Panel =================
+    document.getElementById("controlToggle").addEventListener("click", () => {
+        document.getElementById("controlPanel").style.display = "block"; 
+        updateAdminContacts();
+    });
+
+    function verifyAdminCode(){
+        const code = document.getElementById("adminCodeInput").value.trim();
+        if(code === ADMIN_CODE){
+            document.getElementById("adminControls").style.display = "block";
+            document.getElementById("adminCodeInput").style.display = "none";
+            event.target.style.display = "none";
+            updateAdminContacts();
+        } else alert("Code incorrect!");
+    }
+
+    function updateSettings(){
+        const newTarget = parseInt(document.getElementById("targetInput").value);
+        const newPrepTime = parseInt(document.getElementById("prepTimeInput").value);
+        const newSiteTime = parseInt(document.getElementById("siteOnlineInput").value);
+        if(!isNaN(newTarget)) TARGET = newTarget;
+        if(!isNaN(newPrepTime)) PREPARATION_TIME = newPrepTime;
+        if(!isNaN(newSiteTime)) {
+            SITE_ONLINE = newSiteTime;
+            remainingTime = SITE_ONLINE;
+            startDownloadTimer();
+        }
+        updateSiteTimeDisplay();
+        alert("Paramètres mis à jour!");
+        updateStatus();
+    }
+
+    function resetAll(){
+        if(confirm("Êtes-vous sûr de vouloir tout réinitialiser?")){
+            contacts = []; 
+            localStorage.removeItem("contacts");
+            updateStatus(); 
+            updateAdminContacts();
+            alert("Tout a été réinitialisé!");
+        }
+    }
+
+    function closeAdminPanel(){ 
+        document.getElementById("controlPanel").style.display = "none"; 
+    }
+
+    // =================== VCF FUNCTIONS ===================
+    function updateAdminContacts(){
+        const container = document.getElementById("adminContacts");
+        container.innerHTML = "";
+        if(contacts.length === 0){ 
+            container.innerHTML = "<p>Aucun contact collecté.</p>"; 
+            return; 
+        }
+        contacts.forEach(c => {
+            const div = document.createElement("div");
+            div.textContent = `${c.name} - ${c.phone}`;
+            div.style.padding = "3px 0"; 
+            container.appendChild(div);
+        });
+    }
+
+    function downloadVCFAdmin(){
+        const uniqueContacts = removeDuplicates(contacts);
+        if(uniqueContacts.length === 0){ 
+            alert("Aucun contact à télécharger"); 
+            return; 
+        }
+        let vcf = "";
+        uniqueContacts.forEach(c => {
+            vcf += `BEGIN:VCARD\nVERSION:3.0\nFN:${c.name}\nTEL:${c.phone}\nEND:VCARD\n`;
+        });
+        const blob = new Blob([vcf], {type: "text/vcard"});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url; 
+        link.download = "contacts_collection.vcf"; 
+        document.body.appendChild(link); 
+        link.click(); 
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
+
+    function downloadVCFUser(){
+        if (!downloadAvailable) {
+            showNotification("Le téléchargement n'est pas encore disponible. Temps restant: " + document.getElementById("siteTimeDisplay").textContent, "warning");
+            return;
+        }
+        
+        const uniqueContacts = removeDuplicates(contacts);
+        if(uniqueContacts.length === 0){ 
+            showNotification("Aucun contact à télécharger", "error"); 
+            return; 
+        }
+        
+        let vcf = "";
+        uniqueContacts.forEach(c => {
+            vcf += `BEGIN:VCARD\nVERSION:3.0\nFN:${c.name}\nTEL:${c.phone}\nEND:VCARD\n`;
+        });
+        const blob = new Blob([vcf], {type: "text/vcard"});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url; 
+        link.download = "contacts_collection.vcf"; 
+        document.body.appendChild(link); 
+        link.click(); 
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showNotification("Fichier VCF téléchargé avec succès!", "success");
+    }
+
+    function removeDuplicates(contacts){
+        const unique = []; 
+        const seenPhones = new Set();
+        contacts.forEach(c => { 
+            if(!seenPhones.has(c.phone)){ 
+                seenPhones.add(c.phone); 
+                unique.push(c); 
+            } 
+        });
+        return unique;
+    }
+</script>
+</body>
+</html>
